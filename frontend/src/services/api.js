@@ -16,7 +16,10 @@ const api = axios.create({
 // Request interceptor - Add token to requests
 api.interceptors.request.use(
   (config) => {
-    console.log(`🌐 API Request: ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`);
+    const fullUrl = `${config.baseURL}${config.url}`;
+    console.log(`🌐 API Request: ${config.method?.toUpperCase()} ${fullUrl}`);
+    console.log(`   Base URL: ${config.baseURL}`);
+    console.log(`   Path: ${config.url}`);
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user.token) {
       config.headers.Authorization = `Bearer ${user.token}`;
@@ -35,11 +38,16 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.error(`❌ API Error: ${error.response?.status || 'Network Error'} ${error.config?.url}`);
+    const fullUrl = error.config ? `${error.config.baseURL}${error.config.url}` : 'unknown';
+    console.error(`❌ API Error: ${error.response?.status || 'Network Error'}`);
+    console.error(`   Full URL: ${fullUrl}`);
+    console.error(`   Base URL: ${error.config?.baseURL}`);
+    console.error(`   Path: ${error.config?.url}`);
     console.error('Error details:', {
       message: error.message,
       response: error.response?.data,
       status: error.response?.status,
+      code: error.code,
     });
     if (error.response?.status === 401) {
       // Token expired or invalid
