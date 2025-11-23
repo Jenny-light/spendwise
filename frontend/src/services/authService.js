@@ -3,20 +3,32 @@ import api from './api';
 const authService = {
   // Register user
   register: async (userData) => {
-    const response = await api.post('/auth/register', userData);
-    if (response.data) {
-      localStorage.setItem('user', JSON.stringify(response.data));
+    try {
+      const response = await api.post('/auth/register', userData);
+      if (response.data) {
+        localStorage.setItem('user', JSON.stringify(response.data));
+      }
+      return response.data;
+    } catch (error) {
+      console.error('Registration error:', error);
+      // Re-throw to let the component handle it
+      throw error;
     }
-    return response.data;
   },
 
   // Login user
   login: async (credentials) => {
-    const response = await api.post('/auth/login', credentials);
-    if (response.data) {
-      localStorage.setItem('user', JSON.stringify(response.data));
+    try {
+      const response = await api.post('/auth/login', credentials);
+      if (response.data) {
+        localStorage.setItem('user', JSON.stringify(response.data));
+      }
+      return response.data;
+    } catch (error) {
+      console.error('Login error:', error);
+      // Re-throw to let the component handle it
+      throw error;
     }
-    return response.data;
   },
 
   // Logout user

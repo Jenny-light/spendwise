@@ -83,7 +83,12 @@ const seedDatabase = async () => {
     await Expense.deleteMany();
 
     console.log('👥 Creating users...');
-    const createdUsers = await User.insertMany(users);
+    // Use User.create() instead of insertMany to trigger password hashing middleware
+    const createdUsers = [];
+    for (const userData of users) {
+      const user = await User.create(userData);
+      createdUsers.push(user);
+    }
 
     console.log('💰 Creating expenses...');
     const allExpenses = [];
@@ -109,4 +114,4 @@ const seedDatabase = async () => {
   }
 };
 
-seedDatabase();
+seedDatabase(); 
