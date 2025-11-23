@@ -15,8 +15,8 @@ if (missingEnvVars.length > 0) {
   console.error(`❌ Missing required environment variables: ${missingEnvVars.join(', ')}`);
   console.error('Please create a .env file in the backend directory with the required variables.');
   console.error('Example .env file:');
-  console.error('  MONGO_URI=mongodb://localhost:27017/spendwise');
-  console.error('  JWT_SECRET=your_secret_key_here');
+  console.error('  MONGO_URI=mongodb+srv://spendwise:spendwise2025@cluster0.wzugxru.mongodb.net/?appName=Cluster0');
+  console.error('  JWT_SECRET=d7b460a4a9f54fad663d6b924ee487f507969edc');
   console.error('  JWT_EXPIRE=30d');
   console.error('  PORT=5000');
   process.exit(1);
@@ -88,25 +88,24 @@ app.use(
   })
 );
 
-// Handle preflight requests explicitly (must be before routes)
-app.options('*', (req, res) => {
-  const origin = req.headers.origin;
-  console.log(`🔄 OPTIONS preflight request from: ${origin}`);
-  
-  // Allow Vercel domains
-  if (origin && origin.includes('vercel.app')) {
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Max-Age', '86400'); // 24 hours
-    return res.sendStatus(204);
+// Handle preflight requests explicitly (Express 5 compatible)
+// Note: Express 5 doesn't support '*' wildcard, so we handle OPTIONS in middleware
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    const origin = req.headers.origin;
+    console.log(`🔄 OPTIONS preflight request from: ${origin}`);
+    
+    // Allow Vercel domains
+    if (origin && origin.includes('vercel.app')) {
+      res.header('Access-Control-Allow-Origin', origin);
+      res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
+      res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
+      res.header('Access-Control-Allow-Credentials', 'true');
+      res.header('Access-Control-Max-Age', '86400'); // 24 hours
+      return res.sendStatus(204);
+    }
   }
-  
-  // Use CORS middleware for other origins
-  cors()(req, res, () => {
-    res.sendStatus(204);
-  });
+  next();
 });
 
 // Routes
