@@ -43,6 +43,17 @@ const allowedOrigins = process.env.CLIENT_URL
   ? process.env.CLIENT_URL.split(',').map(url => url.trim())
   : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'];
 
+// Add common production domains if in production
+if (process.env.NODE_ENV === 'production') {
+  // Add Vercel domains (common pattern)
+  if (!allowedOrigins.some(origin => origin.includes('vercel.app'))) {
+    allowedOrigins.push('https://spendwise-flax.vercel.app');
+  }
+  // Add any other production domains here
+}
+
+console.log('🌐 Allowed CORS origins:', allowedOrigins);
+
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -58,10 +69,14 @@ app.use(
       if (allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
+        console.warn(`⚠️ CORS blocked origin: ${origin}`);
+        console.warn(`   Allowed origins: ${allowedOrigins.join(', ')}`);
         callback(new Error('Not allowed by CORS'));
       }
     },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
