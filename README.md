@@ -1,7 +1,6 @@
-![logo-text](https://github.com/user-attachments/assets/420aa7ea-9d1d-49da-87b5-9213cbcccfc4)# 💰 SpendWise - Expense Tracker
+# 💰 SpendWise - Expense Tracker
 
-![SpendWise Logo]()![Uploading logo-text.svg…]()
-
+![logo-text](https://github.com/user-attachments/assets/420aa7ea-9d1d-49da-87b5-9213cbcccfc4)
 
 A full-stack MERN (MongoDB, Express, React, Node.js) expense tracking application with authentication, data visualization, and responsive design.
 
