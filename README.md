@@ -151,7 +151,7 @@ This project is licensed under the MIT License.
 
 ## 👨‍💻 Author
 
-Jennifer Omoregie
+  Jennifer Omoregie
 - Email: jennnylightomoregie@gmail.com
 
 ## 🙏 Acknowledgments
