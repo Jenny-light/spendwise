@@ -1,6 +1,7 @@
-# 💰 SpendWise - Expense Tracker
+![logo-text](https://github.com/user-attachments/assets/420aa7ea-9d1d-49da-87b5-9213cbcccfc4)# 💰 SpendWise - Expense Tracker
 
-![SpendWise Logo](https://via.placeholder.com/800x200/10B981/FFFFFF?text=SpendWise+-+Track+Smart,+Spend+Smarter)
+![SpendWise Logo]()![Uploading logo-text.svg…]()
+
 
 A full-stack MERN (MongoDB, Express, React, Node.js) expense tracking application with authentication, data visualization, and responsive design.
 
@@ -42,7 +43,7 @@ A full-stack MERN (MongoDB, Express, React, Node.js) expense tracking applicatio
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/spendwise.git
+git clone https://github.com/Jenny-light/spendwise.git
 cd spendwise
 ```
 
