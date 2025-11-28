@@ -98,6 +98,8 @@ Password: password123
 
 ### Backend : https://spendwise-cys3.onrender.com
 
+### Pitch Deck : https://gamma.app/docs/SpendWise-3nhn48qdpi45uov
+
 
 ## 🌐 Deployment
 
